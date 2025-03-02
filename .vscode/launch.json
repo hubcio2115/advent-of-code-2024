@@ -10,7 +10,14 @@
       "request": "launch",
       "mode": "debug",
       "program": "${workspaceFolder}/main.go",
-      "args": ["-input=${workspaceFolder}/days/day_2/input.txt"]
+      "args": ["-input=${workspaceFolder}/days/day_3/input.txt"]
+    },
+    {
+      "name": "Debug Go Test",
+      "type": "go",
+      "request": "launch",
+      "mode": "test",
+      "program": "${fileDirname}"
     }
   ]
 }
