@@ -28,8 +28,7 @@ func parseInput(input string) []string {
 
 func croppInput(input string) string {
 	donts := strings.Split(input, "don't()")
-	doInput := donts[0]
-	donts = donts[1:]
+	doInput, donts := donts[0], donts[1:]
 
 	for _, dont := range donts {
 		index := strings.Index(dont, "do()")
