@@ -7,72 +7,44 @@ import (
 	"strings"
 )
 
-const regexPatten = `mul\(\d{1,3},\d{1,3}\)`
+func Part1(input string) int {
+	matches := parseInput(input)
+
+	return calculateResult(matches)
+}
+
+func Part2(input string) int {
+	cropped := croppInput(input)
+	matches := parseInput(cropped)
+
+	return calculateResult(matches)
+}
 
 func parseInput(input string) []string {
-	re, _ := regexp.Compile(regexPatten)
+	re, _ := regexp.Compile(`mul\(\d{1,3},\d{1,3}\)`)
 
 	return re.FindAllString(input, -1)
 }
 
-func Part1(input string) int {
-	matches := parseInput(input)
+func croppInput(input string) string {
+	donts := strings.Split(input, "don't()")
+	doInput := donts[0]
+	donts = donts[1:]
 
-	result := 0
-	for _, match := range matches {
-		start := strings.Index(match, "(")
-		end := strings.Index(match, ")")
-		commaIndex := strings.Index(match, ",")
+	for _, dont := range donts {
+		index := strings.Index(dont, "do()")
 
-		first, err := strconv.Atoi(match[start+1 : commaIndex])
-		if err != nil {
-			log.Fatalf("Couldn't parse %d, Cause: %s", first, err.Error())
+		if index != -1 {
+			doInput += dont[index:]
 		}
-
-		second, err := strconv.Atoi(match[commaIndex+1 : end])
-		if err != nil {
-			log.Fatalf("Couldn't parse %d, Cause: %s", second, err.Error())
-		}
-
-		result += first * second
 	}
 
-	return result
+	return doInput
 }
 
-const doPattern = `do\(\)`
-const dontPattern = `don\'t\(\)`
-
-func parseInput2(input string) []string {
-	re, _ := regexp.Compile(regexPatten)
-	doRe, _ := regexp.Compile(doPattern)
-	dontRe, _ := regexp.Compile(dontPattern)
-
-	doMatches := doRe.FindAllStringIndex(input, -1)
-	dontMatches := dontRe.FindAllStringIndex(input, -1)
-
-	croppedInput := make([]string, 0)
-
-	for i, dontIdx := range dontMatches {
-		if i == 0 {
-			croppedInput = append(croppedInput, input[:dontIdx[0]])
-		} else {
-			doIdx := doMatches[i-1]
-			croppedInput = append(croppedInput, input[doIdx[0]:dontIdx[0]])
-		}
-	}
-
-	if len(doMatches) == len(dontMatches) {
-		croppedInput = append(croppedInput, input[doMatches[len(doMatches)-1][0]:])
-	}
-
-	return re.FindAllString(strings.Join(croppedInput, ""), -1)
-}
-
-func Part2(input string) int {
-	matches := parseInput2(input)
-
+func calculateResult(matches []string) int {
 	result := 0
+
 	for _, match := range matches {
 		start := strings.Index(match, "(")
 		end := strings.Index(match, ")")
