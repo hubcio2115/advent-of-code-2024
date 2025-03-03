@@ -20,8 +20,10 @@ func Part2(input string) int {
 	return calculateResult(matches)
 }
 
+const REGEX = `mul\(\d{1,3},\d{1,3}\)`
+
 func parseInput(input string) []string {
-	re, _ := regexp.Compile(`mul\(\d{1,3},\d{1,3}\)`)
+	re, _ := regexp.Compile(REGEX)
 
 	return re.FindAllString(input, -1)
 }
