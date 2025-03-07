@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	day4 "example.com/m/v2/days/day_4"
+	day5 "example.com/m/v2/days/day_5"
 )
 
 func main() {
@@ -21,9 +21,9 @@ func main() {
 
 	content := string(data)
 
-	result := day4.Part1(content)
+	result := day5.Part1(content)
 	fmt.Printf("Part1: %d\n", result)
 
-	result2 := day4.Part2(content)
+	result2 := day5.Part2(content)
 	fmt.Printf("Part2: %d", result2)
 }
