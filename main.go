@@ -1,12 +1,11 @@
 package main
 
 import (
+	day6 "advent-of-code-2024/days/day_6"
 	"flag"
 	"fmt"
 	"log"
 	"os"
-
-	day5 "example.com/m/v2/days/day_5"
 )
 
 func main() {
@@ -21,9 +20,9 @@ func main() {
 
 	content := string(data)
 
-	result := day5.Part1(content)
+	result := day6.Part1(content)
 	fmt.Printf("Part1: %d\n", result)
 
-	result2 := day5.Part2(content)
-	fmt.Printf("Part2: %d", result2)
+	// result2 := day5.Part2(content)
+	// fmt.Printf("Part2: %d", result2)
 }

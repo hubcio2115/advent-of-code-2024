@@ -1,3 +1,3 @@
-module example.com/m/v2
+module advent-of-code-2024
 
 go 1.24.0
