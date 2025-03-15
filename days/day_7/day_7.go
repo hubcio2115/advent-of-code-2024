@@ -7,14 +7,14 @@ import (
 	"strings"
 )
 
-func Part1(input string) int {
+func Main(input string, canConcat bool) int {
 	result := 0
 	testCases := parseInput(input)
 	for _, testCase := range testCases {
 		calibrationResult := testCase[0]
 		calibrationValues := testCase[1:]
 
-		if canMatch(calibrationResult, 0, calibrationValues, false) {
+		if canMatch(calibrationResult, 0, calibrationValues, canConcat) {
 			result += calibrationResult
 		}
 	}

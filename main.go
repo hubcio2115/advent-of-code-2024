@@ -20,9 +20,9 @@ func main() {
 
 	content := string(data)
 
-	result := day7.Part1(content)
+	result := day7.Main(content, false)
 	fmt.Printf("Part1: %d\n", result)
 
-	result2 := day7.Part2(content)
+	result2 := day7.Main(content, true)
 	fmt.Printf("Part2: %d", result2)
 }

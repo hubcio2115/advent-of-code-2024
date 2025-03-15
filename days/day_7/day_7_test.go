@@ -13,7 +13,7 @@ const INPUT = `190: 10 19
 292: 11 6 16 20`
 
 func TestPart1(t *testing.T) {
-	result := Part1(INPUT)
+	result := Main(INPUT, false)
 
 	if result != 3749 {
 		t.Errorf("Expected 3749, got %d", result)
@@ -21,7 +21,7 @@ func TestPart1(t *testing.T) {
 }
 
 func TestPart2(t *testing.T) {
-	result := Part2(INPUT)
+	result := Main(INPUT, true)
 
 	if result != 11387 {
 		t.Errorf("Expected 11387, got %d", result)
