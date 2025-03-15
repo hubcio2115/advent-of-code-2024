@@ -1,8 +1,8 @@
 package day7
 
 import (
+	"fmt"
 	"log"
-	"math"
 	"strconv"
 	"strings"
 )
@@ -87,11 +87,16 @@ func canMatch(target, current int, numbers []int, canConcat bool) bool {
 	// For part 2, also try concatenation
 	if canConcat {
 		// Concatenate current and next (e.g. 1 and 2 become 12)
-		concatVal := current*int(math.Pow10(len(strconv.Itoa(next)))) + next
+		concatVal := concat(current, next)
 		if canMatch(target, concatVal, remaining, canConcat) {
 			return true
 		}
 	}
 
 	return false
+}
+
+func concat(a, b int) int {
+	result, _ := strconv.Atoi(fmt.Sprint(a) + fmt.Sprint(b))
+	return result
 }
