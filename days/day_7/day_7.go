@@ -5,36 +5,30 @@ import (
 	"log"
 	"strconv"
 	"strings"
+	"sync"
+	"sync/atomic"
 )
 
 func Main(input string, canConcat bool) int {
-	result := 0
+	var result atomic.Int64
 	testCases := parseInput(input)
+	wg := sync.WaitGroup{}
+
 	for _, testCase := range testCases {
 		calibrationResult := testCase[0]
 		calibrationValues := testCase[1:]
 
-		if canMatch(calibrationResult, 0, calibrationValues, canConcat) {
-			result += calibrationResult
-		}
+		wg.Add(1)
+		go func() {
+			if canMatch(calibrationResult, 0, calibrationValues, canConcat) {
+				result.Add(int64(calibrationResult))
+			}
+			wg.Done()
+		}()
 	}
 
-	return result
-}
-
-func Part2(input string) int {
-	result := 0
-	testCases := parseInput(input)
-	for _, testCase := range testCases {
-		calibrationResult := testCase[0]
-		calibrationValues := testCase[1:]
-
-		if canMatch(calibrationResult, 0, calibrationValues, true) {
-			result += calibrationResult
-		}
-	}
-
-	return result
+	wg.Wait()
+	return int(result.Load())
 }
 
 func parseInput(input string) [][]int {
@@ -50,7 +44,7 @@ func parseInput(input string) [][]int {
 		}
 
 		testCase := []int{testValue}
-		for _, value := range strings.Split(split[1], " ") {
+		for value := range strings.SplitSeq(split[1], " ") {
 			calibration, err := strconv.Atoi(value)
 
 			if err != nil {
@@ -97,6 +91,6 @@ func canMatch(target, current int, numbers []int, canConcat bool) bool {
 }
 
 func concat(a, b int) int {
-	result, _ := strconv.Atoi(fmt.Sprint(a) + fmt.Sprint(b))
+	result, _ := strconv.Atoi(fmt.Sprint(a, b))
 	return result
 }
