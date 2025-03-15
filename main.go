@@ -1,7 +1,7 @@
 package main
 
 import (
-	day6 "advent-of-code-2024/days/day_6"
+	day7 "advent-of-code-2024/days/day_7"
 	"flag"
 	"fmt"
 	"log"
@@ -20,9 +20,9 @@ func main() {
 
 	content := string(data)
 
-	result := day6.Part1(content)
+	result := day7.Part1(content)
 	fmt.Printf("Part1: %d\n", result)
 
-	// result2 := day5.Part2(content)
-	// fmt.Printf("Part2: %d", result2)
+	result2 := day7.Part2(content)
+	fmt.Printf("Part2: %d", result2)
 }
